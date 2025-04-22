@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Banana Clicker</title>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      text-align: center;
+      background-color: #fffbe6;
+      color: #333;
+      padding: 40px;
+    }
+
+    h1 {
+      font-size: 3em;
+      color: #f4b400;
+      margin-bottom: 10px;
+    }
+
+    #banana {
+      width: 150px;
+      cursor: pointer;
+      transition: transform 0.1s;
+    }
+
+    #banana:active {
+      transform: scale(1.1);
+    }
+
+    #counter {
+      font-size: 2em;
+      margin: 20px 0;
+    }
+
+    .upgrade-btn {
+      padding: 10px 20px;
+      font-size: 1em;
+      background-color: #f4b400;
+      border: none;
+      color: white;
+      border-radius: 8px;
+      cursor: pointer;
+      margin-top: 20px;
+    }
+
+    .upgrade-btn:disabled {
+      background-color: #ccc;
+      cursor: not-allowed;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>🍌 Banana Clicker</h1>
+  <p id="counter">Bananas: 0</p>
+  <img id="banana" src="https://upload.wikimedia.org/wikipedia/commons/8/8a/Banana-Single.jpg" alt="Banana"/>
+  <br/>
+  <button class="upgrade-btn" id="upgradeBtn">Buy Monkey Helper (Cost: 50)</button>
+
+  <script>
+    let bananas = 0;
+    let autoClicker = 0;
+    const bananaImg = document.getElementById("banana");
+    const counter = document.getElementById("counter");
+    const upgradeBtn = document.getElementById("upgradeBtn");
+
+    bananaImg.onclick = () => {
+      bananas += 1;
+      updateCounter();
+    };
+
+    upgradeBtn.onclick = () => {
+      if (bananas >= 50) {
+        bananas -= 50;
+        autoClicker += 1;
+        upgradeBtn.innerText = `Buy Monkey Helper (Owned: ${autoClicker})`;
+        updateCounter();
+      }
+    };
+
+    function updateCounter() {
+      counter.innerText = `Bananas: ${bananas}`;
+      upgradeBtn.disabled = bananas < 50;
+    }
+
+    // Auto clicker interval
+    setInterval(() => {
+      bananas += autoClicker;
+      updateCounter();
+    }, 1000);
+  </script>
+
+</body>
+</html>
+
